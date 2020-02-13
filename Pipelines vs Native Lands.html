@@ -9,8 +9,8 @@
         <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
         integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
         crossorigin=""></script>
-        <script src = "USA_Native_Lands.geojson"></script>
-        <script src = "CrudeOil_Pipelines_US_201801v2.geojson"></script>
+        <script src = "USA_Native_Lands.geoJSON"></script>
+        <script src = "CrudeOil_Pipelines_US_201801v2.geoJSON"></script>
         
         
     </head>
@@ -52,26 +52,29 @@
         }
         
 
-        var nativePopup = `Native Lands. Image: Native American Protesters Against Pipelines<br/><img src= 'https://psmag.com/.image/c_limit%2Ccs_srgb%2Cq_auto:good%2Cw_1600/MTQ2NTk2MjQzODQ5ODE1OTI3/77f31-1eutravezfe5slkq24awe2g.webp'
-            width='100px'/>`;
+        //var nativePopup = `Native Lands. Image: Native American Protesters Against Pipelines<br/><img src= 'https://psmag.com/.image/c_limit%2Ccs_srgb%2Cq_auto:good%2Cw_1600/MTQ2NTk2MjQzODQ5ODE1OTI3/77f31-1eutravezfe5slkq24awe2g.webp'
+          //  width='100px'/>`;
 
-        var pipelinePopup = `Crude Oil Pipeline<br/><img src='https://www.commondreams.org/sites/default/files/styles/cd_large/public/views-article/dakota_access_pipeline_0.jpg?itok=V3NPp2Rh' 
-           width='100px'/>`;
+      //  var pipelinePopup = `Crude Oil Pipeline<br/><img src='https://www.commondreams.org/sites/default/files/styles/cd_large/public/views-article/dakota_access_pipeline_0.jpg?itok=V3NPp2Rh' 
+      //     width='100px'/>`;
 
         var nativeLayer = L.geoJSON(nativeland,{
-        style:nativeStyle
+        style:nativeStyle,
+        onEachFeature: function (feature, layer) {
+        layer.bindPopup('<h1>'+feature.properties.Loc_Nm+'</h1></p>')}
         });
           
         nativeLayer
-        .bindPopup(nativePopup)
+        //.bindPopup(nativePopup)
         .addTo(map);
 
         var pipelineLayer = L.geoJSON(pipeline,{
-        style:pipelineStyle
+        style:pipelineStyle,
+        onEachFeature: function (feature, layer) {
+        layer.bindPopup('<h1>'+feature.properties.Pipename+'</h1></p>')}
         });
           
         pipelineLayer
-        .bindPopup(pipelinePopup)
         .addTo(map);
 
 
