@@ -1,0 +1,83 @@
+<html>  
+    
+    <head>
+        <title>Pipelines on Native Land</title>
+        
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+        integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+        crossorigin=""/>
+        <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
+        integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
+        crossorigin=""></script>
+        <script src = "USA_Native_Lands.geoJSON"></script>
+        <script src = "CrudeOil_Pipelines_US_201801v2.geoJSON"></script>
+        
+        
+    </head>
+
+    <body>
+        <b><u> <big>Crude Oil Pipelines & Native American Lands</big></u></b>
+        
+        <div id="mapid"></div>
+
+        <style>
+            #mapid{ width: 900px; height: 500px; }
+        </style>
+
+        <script>
+            var map = L.map('mapid').setView([39.50, -98.35], 4);
+           L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.{ext}', {
+        	attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+	        subdomains: 'abcd',
+	        minZoom: 0,
+	        maxZoom: 20,
+	        ext: 'png'
+            }) .addTo(map);
+
+            function nativeStyle(feature) {
+            return {
+            fillColor: "#FFB533",
+            fillOpacity: .3,
+            color: '#000000',
+            weight: 1,
+            };
+        }
+    
+            function pipelineStyle(feature) {
+            return {
+            color: '#660000',
+            weight: 1.7,
+            opacity: .7,
+            };
+        }
+        
+
+        var nativePopup = `Native Lands. Image: Native American Protesters Against Pipelines<br/><img src= 'https://psmag.com/.image/c_limit%2Ccs_srgb%2Cq_auto:good%2Cw_1600/MTQ2NTk2MjQzODQ5ODE1OTI3/77f31-1eutravezfe5slkq24awe2g.webp'
+            width='100px'/>`;
+
+        var pipelinePopup = `Crude Oil Pipeline<br/><img src='https://www.commondreams.org/sites/default/files/styles/cd_large/public/views-article/dakota_access_pipeline_0.jpg?itok=V3NPp2Rh' 
+           width='100px'/>`;
+
+        var nativeLayer = L.geoJSON(nativeland,{
+        style:nativeStyle
+        });
+          
+        nativeLayer
+        .bindPopup(nativePopup)
+        .addTo(map);
+
+        var pipelineLayer = L.geoJSON(pipeline,{
+        style:pipelineStyle
+        });
+          
+        pipelineLayer
+        .bindPopup(pipelinePopup)
+        .addTo(map);
+
+
+      
+                </script>
+
+                Jed Higdon - Geog 456
+          </body>
+</html>
